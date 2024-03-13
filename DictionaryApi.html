@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <script>
+       function btnClick(){
+
+        const word = document.getElementById("inp-text").value;
+
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data){
+           document.getElementById("word").innerHTML = data[0].word;
+           document.getElementById("meaning").innerHTML = data[0].meanings[0].definitions[0].definition;
+           document.getElementById("example").innerHTML = data[0].meanings[0].definitions[0].example;
+           
+        })
+       }
+  </script>
+</head>
+<body class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height:100vh">
+  <div class="card w-25">
+    <div class="card-header bg-warning text-white">
+      <h2 class="text-center fw-bold">Dictionary App</h2>
+    </div>
+    <div class="card-body input-group">
+      <input type="text" id="inp-text" class="form-control">
+      <button onclick="btnClick()" class="btn btn-info bi bi-search"></button>
+    </div>
+    <div class="card-footer">
+      <h1 id="word"></h1>
+      <p id="meaning"></p>
+    </div>
+
+  </div>
+</body>
+</html>
